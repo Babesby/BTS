@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>BTS Blog | Beyond the Science</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root {
+  --orange: #F37021;
+  --gold: #FCB017;
+  --white: #FFFFFF;
+  --dark: #1a1a1a;
+  --gray: #555;
+  --light: #f9f9f9;
+}
+
+/* Reset */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background: var(--white);
+  color: var(--dark);
+  line-height: 1.7;
+}
+
+/* Header */
+
+header {
+  padding: 1.5rem 6%;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo img {
+  height: 40px;
+}
+
+nav a {
+  margin-left: 25px;
+  text-decoration: none;
+  color: var(--dark);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+nav a:hover {
+  color: var(--orange);
+}
+
+/* Hero */
+
+.hero {
+  padding: 5rem 6% 3rem;
+  max-width: 900px;
+  margin: auto;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 2.6rem;
+  margin-bottom: 1rem;
+}
+
+.hero span {
+  color: var(--orange);
+}
+
+.hero p {
+  color: var(--gray);
+  font-size: 1.1rem;
+}
+
+/* Blog Grid */
+
+.blog-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 3rem 6%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+/* Blog Card */
+
+.blog-card {
+  background: var(--light);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+}
+
+/* Blog Image */
+
+.blog-image {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+}
+
+/* Blog Content */
+
+.blog-content {
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.tag {
+  display: inline-block;
+  background: var(--gold);
+  color: #000;
+  font-size: 0.7rem;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+  width: fit-content;
+  font-weight: 600;
+}
+
+.meta {
+  font-size: 0.75rem;
+  color: var(--gray);
+  margin-bottom: 8px;
+}
+
+.blog-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.blog-card p {
+  color: var(--gray);
+  font-size: 0.95rem;
+  margin-bottom: 1.4rem;
+  flex: 1;
+}
+
+.blog-card a {
+  text-decoration: none;
+  color: var(--orange);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.blog-card a:hover {
+  text-decoration: underline;
+}
+
+/* Newsletter */
+
+.newsletter {
+  background: var(--dark);
+  color: var(--white);
+  padding: 4rem 6%;
+  text-align: center;
+  margin-top: 4rem;
+}
+
+.newsletter h2 {
+  margin-bottom: 0.8rem;
+}
+
+.newsletter p {
+  color: #ddd;
+}
+
+.newsletter input {
+  padding: 12px;
+  width: 260px;
+  border: none;
+  border-radius: 6px;
+  margin-right: 6px;
+  outline: none;
+}
+
+.newsletter button {
+  padding: 12px 22px;
+  background: var(--orange);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.newsletter button:hover {
+  background: var(--gold);
+  color: #000;
+}
+
+#message {
+  margin-top: 10px;
+  font-size: 0.85rem;
+}
+
+/* Footer */
+
+footer {
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.8rem;
+  color: var(--gray);
+  border-top: 1px solid #eee;
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+  header {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  nav a {
+    margin: 0 10px;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+}
+
+</style>
+
+<link rel="icon" type="image/png" href="fav.svg">
+
+</head>
+
+<body>
+
+<!-- Header -->
+
+<header>
+
+  <div class="logo">
+    <img src="logo.svg" alt="BTS Africa Logo">
+  </div>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="blog.html">Blogs</a>
+  </nav>
+
+</header>
+
+
+<!-- Hero -->
+
+<section class="hero">
+
+  <h1>Beyond the Science <span>Blog</span></h1>
+
+  <p>
+    Stories, research, and insights on climate action,
+    resilience, and sustainable futures across Africa.
+  </p>
+
+</section>
+
+
+<!-- Blog Grid -->
+
+<section class="blog-container">
+
+
+<!-- Card 1 -->
+
+<div class="blog-card">
+
+  <img src="img/31.jpg" class="blog-image">
+
+  <div class="blog-content">
+
+    <span class="tag">Climate</span>
+
+    <div class="meta">18 April 2023 • Accra, Ghana</div>
+
+    <h3>
+      Building Youth Leadership on Nature-Based Solutions
+    </h3>
+
+    <p>
+      BTS strengthened youth leadership in ecosystem-based climate action through
+      focused training on Nature-Based Solutions for resilience.
+    </p>
+
+    <a href="blogs/1.html">Read Article →</a>
+
+  </div>
+
+</div>
+
+
+<!-- Card 2 -->
+
+<div class="blog-card">
+
+  <img src="img/32.jpg" class="blog-image">
+
+  <div class="blog-content">
+
+    <span class="tag">Policy</span>
+
+    <div class="meta">7 May 2024 • Tamale, Ghana</div>
+
+    <h3>
+      Strengthening Youth Voices in Climate Policy
+    </h3>
+
+    <p>
+      Regional capacity building to equip youth with tools for climate governance
+      and evidence-based advocacy.
+    </p>
+
+    <a href="blogs/2.html">Read Article →</a>
+
+  </div>
+
+</div>
+
+
+<!-- Card 3 -->
+
+<div class="blog-card">
+
+  <img src="img/33.jpg" class="blog-image">
+
+  <div class="blog-content">
+
+    <span class="tag">Innovation</span>
+
+    <div class="meta">12 June 2024 • Legon, Accra</div>
+
+    <h3>
+      Co-Creating Youth MEL Systems
+    </h3>
+
+    <p>
+      BTS and University of Ghana developed user-friendly tools to track youth
+      climate impact.
+    </p>
+
+    <a href="blogs/3.html">Read Article →</a>
+
+  </div>
+
+</div>
+
+
+<!-- Card 4 -->
+
+<div class="blog-card">
+
+  <img src="img/34.jpg" class="blog-image">
+
+  <div class="blog-content">
+
+    <span class="tag">Youth</span>
+
+    <div class="meta">25 July 2025 • Accra, Ghana</div>
+
+    <h3>
+      Strengthening Grassroots Climate Action
+    </h3>
+
+    <p>
+      Technical and capacity support for climate activists to transform ideas into
+      sustainable projects.
+    </p>
+
+    <a href="blogs/4.html">Read Article →</a>
+
+  </div>
+
+</div>
+
+
+
+<div class="blog-card">
+
+  <img src="img/35.jpg" class="blog-image">
+
+  <div class="blog-content">
+
+    <span class="tag">Youth</span>
+
+    <div class="meta">3 September 2025 • Accra, Ghana</div>
+
+    <h3>
+      Preparing Youth Voices for Global Climate Dialogue
+    </h3>
+
+    <p>
+     Beyond the Science (BTS) collaborated with the GoAdapt project to deliver a series of Pre-COP youth engagement activities aimed at strengthening youth contributions to global climate discussions.
+    </p>
+
+    <a href="blogs/5.html">Read Article →</a>
+
+  </div>
+
+</div>
+
+
+<div class="blog-card">
+
+  <img src="img/36.jpg" class="blog-image">
+
+  <div class="blog-content">
+
+    <span class="tag">Youth</span>
+
+    <div class="meta">20 October 2023 • Accra (Ghana), Lagos (Nigeria), Monrovia (Liberia)</div>
+
+    <h3>
+     Amplifying Climate Stories Across Borders
+    </h3>
+
+    <p>
+     Beyond the Science (BTS) has provided technical and editorial support to youth climate reporters in Ghana, Nigeria, and Liberia, strengthening evidence-based climate journalism across West Africa.
+
+    </p>
+
+    <a href="blogs/6.html">Read Article →</a>
+
+  </div>
+
+</div>
+
+
+</section>
+
+
+<!-- Newsletter -->
+
+<section class="newsletter" style="background: #FCB017;">
+
+  <h2>Stay Connected</h2>
+
+  <p style="color: #000;">Get BTS insights, research, and programme updates.</p>
+
+  <br>
+
+  <input type="email" id="email" placeholder="Your email">
+
+  <button onclick="subscribe()">Subscribe</button>
+
+  <p id="message"></p>
+
+</section>
+
+
+<!-- Footer -->
+
+<footer>
+  © 2023 Beyond the Science Africa | Bridging Knowledge and Action
+</footer>
+
+
+<!-- JS -->
+
+<script>
+
+function subscribe(){
+
+  const email = document.getElementById("email").value;
+  const message = document.getElementById("message");
+
+  if(email === ""){
+    message.innerHTML = "Please enter your email.";
+    message.style.color = "red";
+  }
+
+  else{
+    message.innerHTML = "Thank you for subscribing!";
+    message.style.color = "#FCB017";
+  }
+
+}
+
+</script>
+
+</body>
+</html>

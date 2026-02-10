@@ -345,13 +345,19 @@
       }
     }
   </style>
+
+  <link rel="icon" type="image/png" href="fav.svg">
+
 </head>
 
 <body>
 
   <!-- HEADER -->
   <header>
-    <div class="logo">BTS Africa</div>
+   <div class="logo">
+  <img src="logo.svg" alt="BTS Africa Logo">
+</div>
+
 
     <nav>
       <ul id="navLinks">
@@ -359,6 +365,7 @@
         <li><a href="#about">About</a></li>
         <li><a href="#pillars">What We Do</a></li>
         <li><a href="#values">Values</a></li>
+         <li><a href="blog.html">Blogs</a></li>
         <li><a href="#contact">Join</a></li>
       </ul>
     </nav>
@@ -366,22 +373,160 @@
     <div class="menu-btn" id="menuBtn">☰</div>
   </header>
 
-  <!-- HERO -->
-  <section class="hero" id="home">
-    <div class="hero-content">
-      <h1>Beyond the Science.<br><span>Bridging Knowledge and Action.</span></h1>
 
-      <p>
-        We transform climate evidence into practical solutions for communities,
-        institutions, and businesses across Africa.
-      </p>
+<!-- HERO WITH CAROUSEL -->
+<section class="hero" id="home">
 
-      <div class="hero-buttons">
-        <a href="#about" class="btn btn-primary">Explore Our Work</a>
-        <a href="#contact" class="btn btn-outline">Partner With Us</a>
-      </div>
+  <!-- Carousel -->
+  <div class="carousel">
+    <div class="slide active" style="background-image: url('img/36.jpg');"></div>
+    <div class="slide" style="background-image: url('img/2.jpg');"></div>
+        <div class="slide" style="background-image: url('img/LLA_GESI.jpg');"></div>
+          <div class="slide" style="background-image: url('img/Use\ 1.JPG');"></div>
+          <div class="slide" style="background-image: url('img/VR.jpg');"></div>
+          <div class="slide" style="background-image: url('img/youth\ work\ photo.JPG');"></div>
+           
+    
+  </div>
+
+  <!-- Overlay -->
+  <div class="hero-overlay"></div>
+
+  <!-- Text Content -->
+  <div class="hero-content">
+
+    <h1>
+      Beyond the Science.<br>
+      <span>Bridging Knowledge to Action Gap.</span>
+    </h1>
+
+    <p>
+      We transform climate evidence into practical solutions for communities,
+      institutions, and businesses across Africa.
+    </p>
+
+    <div class="hero-buttons">
+      <a href="#about" class="btn btn-primary">Explore Our Work</a>
+      <a href="#contact" class="btn btn-outline">Partner With Us</a>
     </div>
-  </section>
+
+  </div>
+
+</section>
+
+
+<!-- HERO STYLES -->
+<style>
+
+/* ===== HERO BASE ===== */
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== CAROUSEL ===== */
+
+.carousel {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* Slides */
+.slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.3s ease-in-out;
+}
+
+/* Active slide */
+.slide.active {
+  opacity: 1;
+}
+
+/* ===== OVERLAY ===== */
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55); /* Dark overlay */
+  z-index: 1;
+}
+
+/* ===== CONTENT ===== */
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 900px;
+  padding: 0 20px;
+  color: #fff;
+}
+
+/* Headline */
+.hero-content h1 {
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.hero-content h1 span {
+  color: #FCB017;
+}
+
+/* Text */
+.hero-content p {
+  font-size: 1.05rem;
+  max-width: 650px;
+  margin: 0 auto 35px;
+  line-height: 1.6;
+  opacity: 0.95;
+}
+
+/* Buttons */
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+</style>
+
+
+<!-- HERO SCRIPT -->
+<script>
+
+/* ===== HERO CAROUSEL ===== */
+
+const slides = document.querySelectorAll(".slide");
+let currentSlide = 0;
+
+function showSlide(index) {
+  slides.forEach(slide => slide.classList.remove("active"));
+  slides[index].classList.add("active");
+}
+
+function nextSlide() {
+  currentSlide = (currentSlide + 1) % slides.length;
+  showSlide(currentSlide);
+}
+
+/* Change every 5 seconds */
+setInterval(nextSlide, 2000);
+
+</script>
+
 
   <!-- ABOUT -->
   <section id="about">
@@ -397,7 +542,7 @@
           Beyond the Science (BTS) is a Ghanaian-based NGO working at the
           intersection of research, policy, creativity, and community life.
         </p>
-        <p>
+        <p style="color: #FFFFFF!important;">
           We combine local knowledge, lived experiences, and innovative tools
           such as VR, storytelling, games, and theatre to make climate action
           inclusive and practical.
@@ -520,7 +665,7 @@
     </div>
 
     <div class="copyright">
-      © 2026 Beyond the Science (BTS) Africa. All Rights Reserved.
+      © 2023 Beyond the Science (BTS) Africa. All Rights Reserved.
     </div>
   </footer>
 
