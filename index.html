@@ -8,6 +8,7 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+
   <style>
     :root {
       --orange: #F37021;
@@ -400,13 +401,13 @@
       <span>Bridging Knowledge to Action Gap.</span>
     </h1>
 
-    <p>
-      We transform climate evidence into practical solutions for communities,
+    <p style="color: #ffffff;">
+      We transform science evidence into practical solutions for communities,
       institutions, and businesses across Africa.
     </p>
 
     <div class="hero-buttons">
-      <a href="#about" class="btn btn-primary">Explore Our Work</a>
+      <a href="blog.html" class="btn btn-primary">Explore Our Work</a>
       <a href="#contact" class="btn btn-outline">Partner With Us</a>
     </div>
 
@@ -445,7 +446,7 @@
   background-size: cover;
   background-position: center;
   opacity: 0;
-  transition: opacity 1.3s ease-in-out;
+  transition: opacity 1.2s ease-in-out;
 }
 
 /* Active slide */
@@ -552,7 +553,7 @@ setInterval(nextSlide, 2000);
       <div class="about-box">
         <h4>Our Belief</h4>
         <p>
-          Effective climate solutions happen when evidence meets people,
+          Effective local solutions happen when evidence meets people,
           creativity meets policy, and communities lead change.
         </p>
       </div>
@@ -570,7 +571,7 @@ setInterval(nextSlide, 2000);
       <div class="pillar">
         <h4>Knowledge to Action</h4>
         <p>
-          Training, mentorship, and co-design of locally-led climate solutions
+          Training, mentorship, and co-design of locally-led solutions
           with youth, women, and communities.
         </p>
       </div>
@@ -635,19 +636,179 @@ setInterval(nextSlide, 2000);
       Partner with BTS to turn research into action and build climate-resilient
       communities across Africa.
     </p>
-    <a href="#" class="btn">Get Involved</a>
-  </div>
+    <a href="javascript:void(0)" class="btn btn-gold" style="text-decoration:none; font-weight:bold; letter-spacing:2px; color: #1a1a1a; background: #FDB016; border-bottom:1px solid"  onclick="toggleEnquiry()">Get Involved</a>
+</div>
+
+<!-- ADD THESE MISSING ELEMENTS -->
+<div class="panel-overlay" id="panelOverlay" onclick="toggleEnquiry()"></div>
+<div class="enquiry-panel" id="enquiryPanel">
+    <div class="panel-header">
+        <h3>Get Involved</h3>
+        <button class="close-btn" onclick="toggleEnquiry()">&times;</button>
+    </div>
+    
+    <form>
+        <div class="input-group">
+            <label>NAME</label>
+            <input type="text" placeholder="Your name" required>
+        </div>
+        
+        <div class="input-group">
+            <label>EMAIL</label>
+            <input type="email" placeholder="your@email.com" required>
+        </div>
+        
+        <div class="input-group">
+            <label>ORGANIZATION</label>
+            <input type="text" placeholder="Your organization">
+        </div>
+        
+        <div class="input-group">
+            <label>MESSAGE</label>
+            <textarea rows="5" placeholder="Tell us how you'd like to get involved..."></textarea>
+        </div>
+        
+        <button type="submit" class="btn-submit">SEND ENQUIRY</button>
+    </form>
+</div>
+
+<script>
+// FIXED TOGGLE LOGIC (removed duplicate function)
+function toggleEnquiry() {
+    const panel = document.getElementById('enquiryPanel');
+    const overlay = document.getElementById('panelOverlay');
+    
+    panel.classList.toggle('active');
+    overlay.classList.toggle('active');
+    
+    // Lock body scroll when panel is open
+    if (panel.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = 'auto';
+    }
+}
+</script>
+
+<style>
+    /* 2026 LUXURY PANEL CSS */
+    :root {
+        --gold-accent: #FC6539;
+        --panel-bg: white;
+    }
+
+    /* HIDDEN STATE: Panel is pushed 100% off-screen to the right */
+    .enquiry-panel {
+        position: fixed;
+        top: 0;
+        right: -100%; 
+        width: 100%;
+        max-width: 450px;
+        height: 100vh;
+        background: var(--panel-bg);
+        backdrop-filter: blur(50px);
+        border-left: 1px solid rgba(197, 160, 89, 0.2);
+        z-index: 9999;
+        padding: 60px 40px;
+        transition: right 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+        box-sizing: border-box;
+        overflow-y: auto;
+    }
+
+    /* REVEAL STATE */
+    .enquiry-panel.active {
+        right: 0;
+    }
+
+    .panel-overlay {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw; height: 100vh;
+        background: rgba(0,0,0,0.8);
+        opacity: 0;
+        visibility: hidden;
+        z-index: 9998;
+        transition: opacity 0.4s ease;
+    }
+
+    .panel-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* FORM STYLING */
+    .panel-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 40px;
+        border-bottom: 1px solid #FDB016;
+        padding-bottom: 20px;
+    }
+
+    .panel-header h3 {
+        font-family: 'Syne', sans-serif;
+        color: var(--gold-accent);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .close-btn {
+        background: none; border: none;
+        color: #FC6539; font-size: 2rem;
+        cursor: pointer; opacity: 0.5;
+        transition: opacity 0.3s;
+    }
+    .close-btn:hover { opacity: 1; }
+
+    .input-group { margin-bottom: 25px; text-align: left; }
+    
+    .input-group label {
+        display: block;
+        font-size: 0.7rem;
+        color: var(--gold-accent);
+        margin-bottom: 10px;
+        letter-spacing: 1px;
+    }
+
+    .input-group input, .input-group textarea {
+        width: 100%;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid #FC6539;
+        border-radius: 4px;
+        padding: 15px;
+        color: #000;
+        font-family: 'Syne', sans-serif;
+        box-sizing: border-box;
+    }
+
+    .btn-submit {
+        width: 100%;
+        padding: 20px;
+        background: var(--gold-accent);
+        color: #000;
+        font-weight: 800;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.2s, background 0.3s;
+    }
+
+    .btn-submit:hover {
+        background: #FDB016;
+        transform: translateY(-2px);
+    }
+</style>
 
   <!-- FOOTER -->
-  <footer>
+  <footer style="background: #d95f17">
     <div class="footer-grid">
-      <div>
+      <div style="color: white;">
         <h4>Beyond the Science</h4>
         <p>Bridging Knowledge and Action</p>
         <p>Ghana | Africa | Global</p>
       </div>
 
-      <div>
+      <div style="color: white;">
         <h4>Focus Areas</h4>
         <p>Climate Action</p>
         <p>ESG Advisory</p>
@@ -655,7 +816,7 @@ setInterval(nextSlide, 2000);
         <p>Knowledge Innovation</p>
       </div>
 
-      <div>
+      <div style="color: white;">
         <h4>Connect</h4>
         <p><a href="#">Email</a></p>
         <p><a href="#">LinkedIn</a></p>
@@ -691,6 +852,7 @@ setInterval(nextSlide, 2000);
       });
     });
   </script>
+
 
 </body>
 </html>
