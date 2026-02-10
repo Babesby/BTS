@@ -328,17 +328,203 @@ translates into measurable impact.
 
 <!-- CTA -->
 
-<section class="article-cta" style="background: #FCB017;">
+ <div class="cta" id="contact">
+    <h2>Join Us in Going Beyond the Science</h2>
+    <p>
+      Partner with BTS to turn research into action and build climate-resilient
+      communities across Africa.
+    </p>
+    <a href="javascript:void(0)" class="btn btn-gold" style="text-decoration:none; font-weight:bold; letter-spacing:2px; color: #1a1a1a; background: #FDB016; border-bottom:1px solid"  onclick="toggleEnquiry()">Get Involved</a>
+</div>
 
-  <h3>Join Us in Turning Knowledge Into Action</h3>
+<!-- ADD THESE MISSING ELEMENTS -->
+<div class="panel-overlay" id="panelOverlay" onclick="toggleEnquiry()"></div>
+<div class="enquiry-panel" id="enquiryPanel">
+    <div class="panel-header">
+        <h3>Get Involved</h3>
+        <button class="close-btn" onclick="toggleEnquiry()">&times;</button>
+    </div>
+    
+    <form>
+        <div class="input-group">
+            <label>NAME</label>
+            <input type="text" placeholder="Your name" required>
+        </div>
+        
+        <div class="input-group">
+            <label>EMAIL</label>
+            <input type="email" placeholder="your@email.com" required>
+        </div>
+        
+        <div class="input-group">
+            <label>ORGANIZATION</label>
+            <input type="text" placeholder="Your organization">
+        </div>
+        
+        <div class="input-group">
+            <label>MESSAGE</label>
+            <textarea rows="5" placeholder="Tell us how you'd like to get involved..."></textarea>
+        </div>
+        
+        <button type="submit" class="btn-submit">SEND ENQUIRY</button>
+    </form>
+</div>
 
-  <p>
-  Partner with BTS to strengthen community-led climate solutions.
-  </p>
+<script>
+// FIXED TOGGLE LOGIC (removed duplicate function)
+function toggleEnquiry() {
+    const panel = document.getElementById('enquiryPanel');
+    const overlay = document.getElementById('panelOverlay');
+    
+    panel.classList.toggle('active');
+    overlay.classList.toggle('active');
+    
+    // Lock body scroll when panel is open
+    if (panel.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = 'auto';
+    }
+}
+</script>
 
-  <a href="../contact.html">Work With Us</a>
+<style>
+    /* 2026 LUXURY PANEL CSS */
+    :root {
+        --gold-accent: #FC6539;
+        --panel-bg: white;
+    }
 
-</section>
+    /* HIDDEN STATE: Panel is pushed 100% off-screen to the right */
+    .enquiry-panel {
+        position: fixed;
+        top: 0;
+        right: -100%; 
+        width: 100%;
+        max-width: 450px;
+        height: 100vh;
+        background: var(--panel-bg);
+        backdrop-filter: blur(50px);
+        border-left: 1px solid rgba(197, 160, 89, 0.2);
+        z-index: 9999;
+        padding: 60px 40px;
+        transition: right 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+        box-sizing: border-box;
+        overflow-y: auto;
+    }
+
+    /* REVEAL STATE */
+    .enquiry-panel.active {
+        right: 0;
+    }
+
+    .panel-overlay {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw; height: 100vh;
+        background: rgba(0,0,0,0.8);
+        opacity: 0;
+        visibility: hidden;
+        z-index: 9998;
+        transition: opacity 0.4s ease;
+    }
+
+    .panel-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* FORM STYLING */
+    .panel-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 40px;
+        border-bottom: 1px solid #FDB016;
+        padding-bottom: 20px;
+    }
+
+    .panel-header h3 {
+        font-family: 'Syne', sans-serif;
+        color: var(--gold-accent);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .close-btn {
+        background: none; border: none;
+        color: #FC6539; font-size: 2rem;
+        cursor: pointer; opacity: 0.5;
+        transition: opacity 0.3s;
+    }
+    .close-btn:hover { opacity: 1; }
+
+    .input-group { margin-bottom: 25px; text-align: left; }
+    
+    .input-group label {
+        display: block;
+        font-size: 0.7rem;
+        color: var(--gold-accent);
+        margin-bottom: 10px;
+        letter-spacing: 1px;
+    }
+
+    .input-group input, .input-group textarea {
+        width: 100%;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid #FC6539;
+        border-radius: 4px;
+        padding: 15px;
+        color: #000;
+        font-family: 'Syne', sans-serif;
+        box-sizing: border-box;
+    }
+
+    .btn-submit {
+        width: 100%;
+        padding: 20px;
+        background: var(--gold-accent);
+        color: #000;
+        font-weight: 800;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.2s, background 0.3s;
+    }
+
+    .btn-submit:hover {
+        background: #FDB016;
+        transform: translateY(-2px);
+    }
+    /* ================= CTA ================= */
+
+    .cta {
+      background: linear-gradient(135deg, var(--orange), var(--gold));
+      color: var(--white);
+      text-align: center;
+      border-radius: 30px;
+      margin: 60px 6%;
+      padding: 70px 8%;
+    }
+
+    .cta h2 {
+      font-size: 2.1rem;
+      margin-bottom: 15px;
+    }
+
+    .cta p {
+      max-width: 600px;
+      margin: 0 auto 25px;
+    }
+
+    .cta .btn {
+      background: var(--white);
+      color: var(--dark);
+    }
+
+    .cta .btn:hover {
+      background: #f5f5f5;
+    }
+</style>
 
 
 <!-- Footer -->
