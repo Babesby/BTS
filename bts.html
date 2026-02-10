@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beyond the Science (BTS) Africa</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --orange: #F37021;
+      --gold: #FCB017;
+      --white: #FFFFFF;
+      --dark: #111111;
+      --gray: #444444;
+      --bg: #FAFAFA;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ================= HEADER ================= */
+
+    header {
+      width: 100%;
+      padding: 20px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--white);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--orange);
+      letter-spacing: 1px;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--orange);
+    }
+
+    .menu-btn {
+      display: none;
+      font-size: 26px;
+      cursor: pointer;
+    }
+
+    /* ================= HERO ================= */
+
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 140px 6% 80px;
+      background: linear-gradient(135deg, var(--white), #fff4e8);
+    }
+
+    .hero-content {
+      max-width: 900px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      color: var(--orange);
+    }
+
+    .hero p {
+      color: var(--gray);
+      font-size: 1.05rem;
+      margin-bottom: 35px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 12px 28px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      transition: 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: var(--orange);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: #d95f17;
+    }
+
+    .btn-outline {
+      border: 2px solid var(--gold);
+      color: var(--dark);
+      background: transparent;
+    }
+
+    .btn-outline:hover {
+      background: var(--gold);
+    }
+
+    /* ================= SECTION ================= */
+
+    section {
+      padding: 90px 6%;
+    }
+
+    .section-title {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 60px;
+    }
+
+    .section-title h2 {
+      font-size: 2.2rem;
+      margin-bottom: 15px;
+    }
+
+    .section-title span {
+      color: var(--orange);
+    }
+
+    .section-title p {
+      color: var(--gray);
+    }
+
+    /* ================= ABOUT ================= */
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+      align-items: center;
+    }
+
+    .about-text h3 {
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+    }
+
+    .about-text p {
+      color: var(--gray);
+      margin-bottom: 15px;
+    }
+
+    .about-box {
+      background: var(--white);
+      padding: 35px;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+      border-left: 4px solid var(--orange);
+    }
+
+    /* ================= PILLARS ================= */
+
+    .pillars {
+      background: #fffdf9;
+    }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+    }
+
+    .pillar {
+      background: var(--white);
+      padding: 35px 25px;
+      border-radius: 18px;
+      text-align: center;
+      transition: 0.3s;
+      border: 1px solid #eee;
+    }
+
+    .pillar:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.08);
+    }
+
+    .pillar h4 {
+      margin-bottom: 12px;
+      color: var(--orange);
+    }
+
+    .pillar p {
+      color: var(--gray);
+      font-size: 0.95rem;
+    }
+
+    /* ================= VALUES ================= */
+
+    .values-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
+    }
+
+    .value {
+      padding: 25px;
+      background: linear-gradient(135deg, #fff, #fff8ed);
+      border-radius: 14px;
+      border: 1px solid #f1f1f1;
+    }
+
+    .value h5 {
+      color: var(--orange);
+      margin-bottom: 8px;
+    }
+
+    /* ================= CTA ================= */
+
+    .cta {
+      background: linear-gradient(135deg, var(--orange), var(--gold));
+      color: var(--white);
+      text-align: center;
+      border-radius: 30px;
+      margin: 60px 6%;
+      padding: 70px 8%;
+    }
+
+    .cta h2 {
+      font-size: 2.1rem;
+      margin-bottom: 15px;
+    }
+
+    .cta p {
+      max-width: 600px;
+      margin: 0 auto 25px;
+    }
+
+    .cta .btn {
+      background: var(--white);
+      color: var(--dark);
+    }
+
+    .cta .btn:hover {
+      background: #f5f5f5;
+    }
+
+    /* ================= FOOTER ================= */
+
+    footer {
+      background: #0f0f0f;
+      color: #ccc;
+      padding: 50px 6% 30px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 35px;
+      margin-bottom: 30px;
+    }
+
+    footer h4 {
+      color: var(--white);
+      margin-bottom: 15px;
+    }
+
+    footer p, footer a {
+      color: #bbb;
+      font-size: 0.9rem;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: var(--gold);
+    }
+
+    .copyright {
+      text-align: center;
+      font-size: 0.85rem;
+      border-top: 1px solid #222;
+      padding-top: 15px;
+    }
+
+    /* ================= RESPONSIVE ================= */
+
+    @media (max-width: 768px) {
+      nav ul {
+        position: absolute;
+        top: 75px;
+        right: 0;
+        background: var(--white);
+        flex-direction: column;
+        width: 220px;
+        padding: 25px;
+        display: none;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      }
+
+      nav ul.active {
+        display: flex;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">BTS Africa</div>
+
+    <nav>
+      <ul id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#pillars">What We Do</a></li>
+        <li><a href="#values">Values</a></li>
+        <li><a href="#contact">Join</a></li>
+      </ul>
+    </nav>
+
+    <div class="menu-btn" id="menuBtn">☰</div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1>Beyond the Science.<br><span>Bridging Knowledge and Action.</span></h1>
+
+      <p>
+        We transform climate evidence into practical solutions for communities,
+        institutions, and businesses across Africa.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#about" class="btn btn-primary">Explore Our Work</a>
+        <a href="#contact" class="btn btn-outline">Partner With Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-title">
+      <h2>Who <span>We Are</span></h2>
+      <p>Beyond academia. Beyond policy. Into real community action.</p>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-text">
+        <h3>Transforming Knowledge into Impact</h3>
+        <p>
+          Beyond the Science (BTS) is a Ghanaian-based NGO working at the
+          intersection of research, policy, creativity, and community life.
+        </p>
+        <p>
+          We combine local knowledge, lived experiences, and innovative tools
+          such as VR, storytelling, games, and theatre to make climate action
+          inclusive and practical.
+        </p>
+      </div>
+
+      <div class="about-box">
+        <h4>Our Belief</h4>
+        <p>
+          Effective climate solutions happen when evidence meets people,
+          creativity meets policy, and communities lead change.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PILLARS -->
+  <section class="pillars" id="pillars">
+    <div class="section-title">
+      <h2>Our <span>Pillars</span></h2>
+      <p>Three interconnected pathways to sustainable futures.</p>
+    </div>
+
+    <div class="pillars-grid">
+      <div class="pillar">
+        <h4>Knowledge to Action</h4>
+        <p>
+          Training, mentorship, and co-design of locally-led climate solutions
+          with youth, women, and communities.
+        </p>
+      </div>
+
+      <div class="pillar">
+        <h4>Innovative Dissemination</h4>
+        <p>
+          VR, games, theatre, podcasts, films, and visual tools that turn complex
+          data into clear stories.
+        </p>
+      </div>
+
+      <div class="pillar">
+        <h4>ESG & Policy Advisory</h4>
+        <p>
+          Supporting institutions and businesses with climate governance,
+          sustainability strategies, and ESG integration.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section id="values">
+    <div class="section-title">
+      <h2>Our <span>Values</span></h2>
+      <p>The principles guiding our work and partnerships.</p>
+    </div>
+
+    <div class="values-list">
+      <div class="value">
+        <h5>Inclusivity & Justice</h5>
+        <p>Centering women, youth, and vulnerable groups.</p>
+      </div>
+
+      <div class="value">
+        <h5>Locally-Led Leadership</h5>
+        <p>Trusting and elevating community knowledge.</p>
+      </div>
+
+      <div class="value">
+        <h5>Innovation & Creativity</h5>
+        <p>Using arts, tech, and co-creation for impact.</p>
+      </div>
+
+      <div class="value">
+        <h5>Collaboration</h5>
+        <p>Working across sectors and disciplines.</p>
+      </div>
+
+      <div class="value">
+        <h5>Integrity & Impact</h5>
+        <p>Evidence-based, transparent, and results-driven.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta" id="contact">
+    <h2>Join Us in Going Beyond the Science</h2>
+    <p>
+      Partner with BTS to turn research into action and build climate-resilient
+      communities across Africa.
+    </p>
+    <a href="#" class="btn">Get Involved</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <h4>Beyond the Science</h4>
+        <p>Bridging Knowledge and Action</p>
+        <p>Ghana | Africa | Global</p>
+      </div>
+
+      <div>
+        <h4>Focus Areas</h4>
+        <p>Climate Action</p>
+        <p>ESG Advisory</p>
+        <p>Capacity Building</p>
+        <p>Knowledge Innovation</p>
+      </div>
+
+      <div>
+        <h4>Connect</h4>
+        <p><a href="#">Email</a></p>
+        <p><a href="#">LinkedIn</a></p>
+        <p><a href="#">Twitter/X</a></p>
+        <p><a href="#">YouTube</a></p>
+      </div>
+    </div>
+
+    <div class="copyright">
+      © 2026 Beyond the Science (BTS) Africa. All Rights Reserved.
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script>
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
+
+    menuBtn.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
+    });
+
+    // Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+
+        navLinks.classList.remove("active");
+      });
+    });
+  </script>
+
+</body>
+</html>
