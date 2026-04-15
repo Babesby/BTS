@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gallery | Beyond the Science</title>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+
+<link rel="icon" type="image/png" href="fav.svg">
+
+<style>
+:root {
+  --orange: #F37021;
+  --gold: #FCB017;
+  --white: #FFFFFF;
+  --dark: #0f0f0f;
+  --gray: #888;
+  --light: #f5f4f1;
+  --border: #e8e4dc;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--white);
+  color: var(--dark);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ─── HEADER ─── */
+header {
+  padding: 1.4rem 6%;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  z-index: 100;
+}
+
+.logo img { height: 38px; }
+
+nav a {
+  margin-left: 28px;
+  text-decoration: none;
+  color: var(--dark);
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  opacity: 0.7;
+  transition: opacity 0.2s, color 0.2s;
+}
+
+nav a:hover, nav a.active { opacity: 1; color: var(--orange); }
+
+/* ─── HERO ─── */
+.page-hero {
+  padding: 6rem 6% 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 2rem;
+}
+
+.page-hero-text h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2.6rem, 5vw, 4rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.page-hero-text h1 em {
+  font-style: italic;
+  color: var(--orange);
+}
+
+.page-hero-text p {
+  margin-top: 1rem;
+  color: var(--gray);
+  font-size: 0.95rem;
+  max-width: 420px;
+  line-height: 1.7;
+}
+
+.count-badge {
+  font-family: 'DM Serif Display', serif;
+  font-size: 5rem;
+  color: var(--light);
+  line-height: 1;
+  user-select: none;
+  letter-spacing: -0.04em;
+}
+
+/* ─── FILTER BAR ─── */
+.filter-bar {
+  max-width: 1200px;
+  margin: 2rem auto 0;
+  padding: 0 6% 2rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--border);
+}
+
+.filter-btn {
+  padding: 7px 18px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  background: transparent;
+  color: var(--gray);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.filter-btn:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+}
+
+.filter-btn.active {
+  background: var(--dark);
+  border-color: var(--dark);
+  color: var(--white);
+}
+
+/* ─── GALLERY GRID ─── */
+.gallery-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 6% 6rem;
+}
+
+.gallery-grid {
+  columns: 3;
+  column-gap: 1.2rem;
+}
+
+@media (max-width: 900px) { .gallery-grid { columns: 2; } }
+@media (max-width: 540px) { .gallery-grid { columns: 1; } }
+
+.gallery-item {
+  break-inside: avoid;
+  margin-bottom: 1.2rem;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  cursor: pointer;
+  display: block;
+}
+
+.gallery-item img {
+  width: 100%;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border-radius: 10px;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.04);
+}
+
+.gallery-item-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(15,15,15,0.72) 0%, transparent 55%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.4rem;
+}
+
+.gallery-item:hover .gallery-item-overlay { opacity: 1; }
+
+.gallery-item-overlay .item-tag {
+  display: inline-block;
+  background: var(--gold);
+  color: #000;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 3px 10px;
+  border-radius: 100px;
+  margin-bottom: 6px;
+  width: fit-content;
+  text-transform: uppercase;
+}
+
+.gallery-item-overlay .item-caption {
+  color: var(--white);
+  font-size: 0.88rem;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.gallery-item-overlay .item-meta {
+  color: rgba(255,255,255,0.55);
+  font-size: 0.72rem;
+  margin-top: 4px;
+}
+
+/* Hidden items */
+.gallery-item.hidden {
+  display: none;
+}
+
+/* ─── LIGHTBOX ─── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.96);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+  padding: 2rem;
+}
+
+.lightbox.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightbox-inner {
+  position: relative;
+  max-width: 860px;
+  width: 100%;
+  transform: scale(0.94) translateY(16px);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.lightbox.open .lightbox-inner {
+  transform: scale(1) translateY(0);
+}
+
+.lightbox-inner img {
+  width: 100%;
+  border-radius: 10px;
+  display: block;
+  max-height: 78vh;
+  object-fit: contain;
+}
+
+.lightbox-caption {
+  margin-top: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.lightbox-caption .item-tag {
+  display: inline-block;
+  background: var(--gold);
+  color: #000;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 3px 10px;
+  border-radius: 100px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.lightbox-caption-text {
+  color: rgba(255,255,255,0.75);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.lightbox-caption-text strong {
+  color: white;
+  font-weight: 400;
+  display: block;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -3rem;
+  right: 0;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.5);
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: color 0.2s;
+  line-height: 1;
+}
+
+.lightbox-close:hover { color: white; }
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: white;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background 0.2s;
+}
+
+.lightbox-nav:hover { background: rgba(255,255,255,0.15); }
+.lightbox-nav.prev { left: -64px; }
+.lightbox-nav.next { right: -64px; }
+
+@media (max-width: 768px) {
+  .lightbox-nav { display: none; }
+}
+
+/* ─── LOAD MORE ─── */
+.load-more-wrap {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.load-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 36px;
+  border: 1px solid var(--dark);
+  border-radius: 100px;
+  background: transparent;
+  color: var(--dark);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.load-more-btn:hover {
+  background: var(--dark);
+  color: var(--white);
+}
+
+.load-more-btn svg { transition: transform 0.3s; }
+.load-more-btn:hover svg { transform: translateY(3px); }
+
+/* ─── CTA ─── */
+.cta {
+  background: linear-gradient(135deg, var(--orange), var(--gold));
+  color: var(--white);
+  text-align: center;
+  border-radius: 24px;
+  margin: 0 6% 5rem;
+  padding: 70px 8%;
+}
+
+.cta h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 12px;
+}
+
+.cta p {
+  max-width: 500px;
+  margin: 0 auto 28px;
+  opacity: 0.9;
+  font-size: 0.95rem;
+}
+
+.cta-btn {
+  display: inline-block;
+  padding: 14px 34px;
+  background: var(--white);
+  color: var(--dark);
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 100px;
+  transition: background 0.25s;
+}
+
+.cta-btn:hover { background: #f0efea; }
+
+/* ─── FOOTER ─── */
+footer {
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.78rem;
+  color: var(--gray);
+  border-top: 1px solid var(--border);
+}
+
+/* ─── ENTRANCE ANIMATIONS ─── */
+.gallery-item {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.55s ease forwards;
+}
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* stagger each item */
+.gallery-item:nth-child(1)  { animation-delay: 0.05s; }
+.gallery-item:nth-child(2)  { animation-delay: 0.10s; }
+.gallery-item:nth-child(3)  { animation-delay: 0.15s; }
+.gallery-item:nth-child(4)  { animation-delay: 0.20s; }
+.gallery-item:nth-child(5)  { animation-delay: 0.25s; }
+.gallery-item:nth-child(6)  { animation-delay: 0.30s; }
+.gallery-item:nth-child(7)  { animation-delay: 0.35s; }
+.gallery-item:nth-child(8)  { animation-delay: 0.40s; }
+.gallery-item:nth-child(9)  { animation-delay: 0.45s; }
+.gallery-item:nth-child(10) { animation-delay: 0.50s; }
+.gallery-item:nth-child(11) { animation-delay: 0.55s; }
+.gallery-item:nth-child(12) { animation-delay: 0.60s; }
+
+/* Panel styles (matching blog.html) */
+:root { --gold-accent: #FC6539; --panel-bg: white; }
+
+.enquiry-panel {
+  position: fixed;
+  top: 0; right: -100%;
+  width: 100%; max-width: 450px; height: 100vh;
+  background: var(--panel-bg);
+  backdrop-filter: blur(50px);
+  border-left: 1px solid rgba(197,160,89,0.2);
+  z-index: 9999;
+  padding: 60px 40px;
+  transition: right 0.6s cubic-bezier(0.19,1,0.22,1);
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+.enquiry-panel.active { right: 0; }
+.panel-overlay {
+  position: fixed; top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.8);
+  opacity: 0; visibility: hidden;
+  z-index: 9998; transition: opacity 0.4s ease;
+}
+.panel-overlay.active { opacity: 1; visibility: visible; }
+.panel-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 40px; border-bottom: 1px solid #FDB016; padding-bottom: 20px;
+}
+.panel-header h3 {
+  color: var(--gold-accent); text-transform: uppercase; letter-spacing: 2px;
+}
+.close-btn {
+  background: none; border: none; color: #FC6539;
+  font-size: 2rem; cursor: pointer; opacity: 0.5; transition: opacity 0.3s;
+}
+.close-btn:hover { opacity: 1; }
+.input-group { margin-bottom: 25px; text-align: left; }
+.input-group label { display: block; font-size: 0.7rem; color: var(--gold-accent); margin-bottom: 10px; letter-spacing: 1px; }
+.input-group input, .input-group textarea {
+  width: 100%; background: rgba(255,255,255,0.03);
+  border: 1px solid #FC6539; border-radius: 4px;
+  padding: 15px; color: #000; box-sizing: border-box;
+}
+.btn-submit {
+  width: 100%; padding: 20px; background: var(--gold-accent);
+  color: #000; font-weight: 800; border: none; cursor: pointer;
+  transition: transform 0.2s, background 0.3s;
+}
+.btn-submit:hover { background: #FDB016; transform: translateY(-2px); }
+
+</style>
+</head>
+
+<body>
+
+<!-- Header -->
+<header>
+  <div class="logo">
+    <img src="logo.svg" alt="BTS Africa Logo">
+  </div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="blog.html">Blogs</a>
+    <a href="gallery.html" class="active">Gallery</a>
+  </nav>
+</header>
+
+
+<!-- Hero -->
+<section class="page-hero">
+  <div class="page-hero-text">
+    <h1 style="color: #FC6539;">Our Work</h1>
+    <p>A visual record of workshops, field engagements, and youth-led climate action across Africa.</p>
+  </div>
+  <div class="count-badge" id="photoCount">—</div>
+</section>
+
+
+<!-- Filters -->
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="climate">Climate</button>
+  <button class="filter-btn" data-filter="policy">Policy</button>
+  <button class="filter-btn" data-filter="innovation">Innovation</button>
+  <button class="filter-btn" data-filter="youth">Youth</button>
+  <button class="filter-btn" data-filter="fun">Funtime</button>
+</div>
+
+
+<!-- Gallery Grid -->
+<section class="gallery-section">
+  <div class="gallery-grid" id="galleryGrid">
+
+    <div class="gallery-item" data-category="climate" data-index="0">
+      <img src="img/clim1.jpg" alt="Youth Nature-Based Solutions Training" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Climate</span>
+        <div class="item-caption">Nature-Based Solutions Training</div>
+        <div class="item-meta">Accra, Ghana · April 2023</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="climate" data-index="1">
+      <img src="img/clim2.jpg" alt="Ecosystem Resilience Workshop" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Climate</span>
+        <div class="item-caption">Ecosystem Resilience Workshop</div>
+        <div class="item-meta">Accra, Ghana · April 2023</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="policy" data-index="2">
+      <img src="img/poli1.jpg" alt="Youth Climate Governance Dialogue" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Policy</span>
+        <div class="item-caption">Youth Climate Governance Dialogue</div>
+        <div class="item-meta">Tamale, Ghana · May 2024</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="policy" data-index="3">
+      <img src="img/poli2.jpg" alt="Evidence-Based Advocacy Capacity Building" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Policy</span>
+        <div class="item-caption">Evidence-Based Advocacy Session</div>
+        <div class="item-meta">Tamale, Ghana · May 2024</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="innovation" data-index="4">
+      <img src="img/inno0.jpg" alt="MEL Systems Co-Creation" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Innovation</span>
+        <div class="item-caption">MEL Systems Co-Creation</div>
+        <div class="item-meta">Legon, Accra · June 2024</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="innovation" data-index="5">
+      <img src="img/inno1.jpg" alt="CDKN Ghana Patnership" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Innovation</span>
+        <div class="item-caption">CDKN Ghana Patnership</div>
+        <div class="item-meta">Legon, Accra · June 2024</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="youth" data-index="6">
+      <img src="img/youth work photo.JPG" alt="Grassroots Climate Activators" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Youth</span>
+        <div class="item-caption">Grassroots Climate Activators</div>
+        <div class="item-meta">Accra, Ghana · July 2025</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="youth" data-index="7">
+      <img src="img/5.jpg" alt="Pre-COP Youth Engagement" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Youth</span>
+        <div class="item-caption">Pre-COP Youth Engagement</div>
+        <div class="item-meta">Accra, Ghana · September 2025</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="fun" data-index="8">
+      <img src="img/fun1.jpg" alt="Climate Journalism Across West Africa" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Funtime</span>
+        <div class="item-caption"></div>
+        <div class="item-meta">Ghana · Nigeria · Liberia · Oct 2023</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="youth" data-index="9">
+      <img src="img/2.JPG" alt="Youth Led Climate Action" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Youth</span>
+        <div class="item-caption">Youth-Led Climate Action</div>
+        <div class="item-meta">Accra, Ghana</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="climate" data-index="10">
+      <img src="img/clim3.jpg" alt="Field Research & Community Engagement" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Climate</span>
+        <div class="item-caption">Field Research & Community Engagement</div>
+        <div class="item-meta">West Africa</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="policy" data-index="11">
+      <img src="img/poli3.jpg" alt="Regional Climate Policy Forum" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Policy</span>
+        <div class="item-caption">Regional Climate Policy Forum</div>
+        <div class="item-meta">West Africa</div>
+      </div>
+    </div>
+
+
+
+    <div class="gallery-item" data-category="climate" data-index="0">
+      <img src="img/clim4.JPG" alt="Youth Nature-Based Solutions Training" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Climate</span>
+        <div class="item-caption">Nature-Based Solutions Training</div>
+        <div class="item-meta">Accra, Ghana · April 2023</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="climate" data-index="1">
+      <img src="img/clim5.jpg" alt="Ecosystem Resilience Workshop" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Climate</span>
+        <div class="item-caption">Ecosystem Resilience Workshop</div>
+        <div class="item-meta">Accra, Ghana · April 2023</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="policy" data-index="2">
+      <img src="img/poli4.jpg" alt="Youth Climate Governance Dialogue" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Policy</span>
+        <div class="item-caption">Youth Climate Governance Dialogue</div>
+        <div class="item-meta">Tamale, Ghana · May 2024</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="policy" data-index="3">
+      <img src="img/poli5.jpg" alt="Evidence-Based Advocacy Capacity Building" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Policy</span>
+        <div class="item-caption">Evidence-Based Advocacy Session</div>
+        <div class="item-meta">Tamale, Ghana · May 2024</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="innovation" data-index="4">
+      <img src="img/inno2.jpg" alt="MEL Systems Co-Creation" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Innovation</span>
+        <div class="item-caption">MEL Systems Co-Creation</div>
+        <div class="item-meta">Legon, Accra · June 2024</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="innovation" data-index="5">
+      <img src="img/inno4.jpg" alt="CDKN Ghana Patnership" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Innovation</span>
+        <div class="item-caption">CDKN Ghana Patnership</div>
+        <div class="item-meta">Legon, Accra · June 2024</div>
+      </div>
+    </div>
+
+      <div class="gallery-item" data-category="innovation" data-index="5">
+      <img src="img/inno7.jpg" alt="CDKN Ghana Patnership" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Innovation</span>
+        <div class="item-caption">CDKN Ghana Patnership</div>
+        <div class="item-meta">Legon, Accra · June 2024</div>
+      </div>
+    </div>
+
+     <div class="gallery-item" data-category="innovation" data-index="5">
+      <img src="img/inno8.jpg" alt="CDKN Ghana Patnership" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Innovation</span>
+        <div class="item-caption">CDKN Ghana Patnership</div>
+        <div class="item-meta">Legon, Accra · June 2024</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-category="innovation" data-index="5">
+      <img src="img/VR.jpg" alt="CDKN Ghana Patnership" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Innovation</span>
+        <div class="item-caption">CDKN Ghana Patnership</div>
+        <div class="item-meta">Legon, Accra · June 2024</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="fun" data-index="8">
+      <img src="img/fun3.jpg" alt="Climate Journalism Across West Africa" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Funtime</span>
+        <div class="item-caption"></div>
+        <div class="item-meta">Ghana · Nigeria · Liberia · Oct 2023</div>
+      </div>
+    </div>
+
+     <div class="gallery-item" data-category="fun" data-index="8">
+      <img src="img/fun4.jpg" alt="Climate Journalism Across West Africa" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Funtime</span>
+        <div class="item-caption"></div>
+        <div class="item-meta">Ghana · Nigeria · Liberia · Oct 2023</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="climate" data-index="10">
+      <img src="img/clim6.jpg" alt="Field Research & Community Engagement" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Climate</span>
+        <div class="item-caption">Field Research & Community Engagement</div>
+        <div class="item-meta">West Africa</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="policy" data-index="11">
+      <img src="img/poli6.jpg" alt="Regional Climate Policy Forum" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Policy</span>
+        <div class="item-caption">Regional Climate Policy Forum</div>
+        <div class="item-meta">West Africa</div>
+      </div>
+    </div>
+
+     <div class="gallery-item" data-category="policy" data-index="11">
+      <img src="img/poli7.jpg" alt="Regional Climate Policy Forum" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Policy</span>
+        <div class="item-caption">Regional Climate Policy Forum</div>
+        <div class="item-meta">West Africa</div>
+      </div>
+    </div>
+
+     <div class="gallery-item" data-category="policy" data-index="11">
+      <img src="img/poli9.jpg" alt="Regional Climate Policy Forum" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Policy</span>
+        <div class="item-caption">Regional Climate Policy Forum</div>
+        <div class="item-meta">West Africa</div>
+      </div>
+    </div>
+     <div class="gallery-item" data-category="fun" data-index="8">
+      <img src="img/fun5.jpg" alt="Climate Journalism Across West Africa" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Funtime</span>
+        <div class="item-caption"></div>
+        <div class="item-meta">Ghana · Nigeria · Liberia · Oct 2023</div>
+      </div>
+    </div>
+     <div class="gallery-item" data-category="fun" data-index="8">
+      <img src="img/fun6.jpg" alt="Climate Journalism Across West Africa" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Funtime</span>
+        <div class="item-caption"></div>
+        <div class="item-meta">Ghana · Nigeria · Liberia · Oct 2023</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="innovation" data-index="5">
+      <img src="img/inno9.jpg" alt="CDKN Ghana Patnership" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Innovation</span>
+        <div class="item-caption">CDKN Ghana Patnership</div>
+        <div class="item-meta">Legon, Accra · June 2024</div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="innovation" data-index="5">
+      <img src="img/inno10.jpg" alt="CDKN Ghana Patnership" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Innovation</span>
+        <div class="item-caption">CDKN Ghana Patnership Patnership</div>
+        <div class="item-meta">Legon, Accra · June 2024</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-category="policy" data-index="3">
+      <img src="img/poli7.jpg" alt="Evidence-Based Advocacy Capacity Building" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Policy</span>
+        <div class="item-caption">Evidence-Based Advocacy Session</div>
+        <div class="item-meta">Tamale, Ghana · May 2024</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-category="policy" data-index="3">
+      <img src="img/poli9.jpg" alt="Evidence-Based Advocacy Capacity Building" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Policy</span>
+        <div class="item-caption">Evidence-Based Advocacy Session</div>
+        <div class="item-meta">Tamale, Ghana · May 2024</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-category="climate" data-index="0">
+      <img src="img/clim7.JPG" alt="Youth Nature-Based Solutions Training" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Climate</span>
+        <div class="item-caption">Nature-Based Solutions Training</div>
+        <div class="item-meta">Accra, Ghana · April 2023</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-category="climate" data-index="0">
+      <img src="img/clim8.jpg" alt="Youth Nature-Based Solutions Training" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Climate</span>
+        <div class="item-caption">Nature-Based Solutions Training</div>
+        <div class="item-meta">Accra, Ghana · April 2023</div>
+      </div>
+    </div>
+    <div class="gallery-item" data-category="climate" data-index="0">
+      <img src="img/clim9.jpg" alt="Youth Nature-Based Solutions Training" loading="lazy">
+      <div class="gallery-item-overlay">
+        <span class="item-tag">Climate</span>
+        <div class="item-caption">Nature-Based Solutions Training</div>
+        <div class="item-meta">Accra, Ghana · April 2023</div>
+      </div>
+    </div>
+    
+
+
+  </div>
+
+  <!-- Load More -->
+  <div class="load-more-wrap" id="loadMoreWrap">
+    <button class="load-more-btn" onclick="loadMore()">
+      Load More
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M7 1v12M1 7l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+</section>
+
+
+<!-- CTA -->
+<div class="cta">
+  <h2>Join Us in Going Beyond the Science</h2>
+  <p>Partner with BTS to turn research into action and build climate-resilient communities across Africa.</p>
+  <a href="javascript:void(0)" class="cta-btn" onclick="toggleEnquiry()">Get Involved</a>
+</div>
+
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightboxOnBg(event)">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" onclick="closeLightbox()" title="Close">✕</button>
+    <button class="lightbox-nav prev" onclick="navLightbox(-1)">&#8592;</button>
+    <button class="lightbox-nav next" onclick="navLightbox(1)">&#8594;</button>
+    <img id="lightboxImg" src="" alt="">
+    <div class="lightbox-caption">
+      <span class="item-tag" id="lightboxTag"></span>
+      <div class="lightbox-caption-text">
+        <strong id="lightboxCaption"></strong>
+        <span id="lightboxMeta"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Enquiry Panel -->
+<div class="panel-overlay" id="panelOverlay" onclick="toggleEnquiry()"></div>
+<div class="enquiry-panel" id="enquiryPanel">
+  <div class="panel-header">
+    <h3>Get Involved</h3>
+    <button class="close-btn" onclick="toggleEnquiry()">&times;</button>
+  </div>
+  <form>
+    <div class="input-group">
+      <label>NAME</label>
+      <input type="text" placeholder="Your name" required>
+    </div>
+    <div class="input-group">
+      <label>EMAIL</label>
+      <input type="email" placeholder="your@email.com" required>
+    </div>
+    <div class="input-group">
+      <label>ORGANIZATION</label>
+      <input type="text" placeholder="Your organization">
+    </div>
+    <div class="input-group">
+      <label>MESSAGE</label>
+      <textarea rows="5" placeholder="Tell us how you'd like to get involved..."></textarea>
+    </div>
+    <button type="submit" class="btn-submit">SEND ENQUIRY</button>
+  </form>
+</div>
+
+
+<!-- Footer -->
+<footer>
+  © 2023 Beyond the Science Africa | Bridging Knowledge and Action
+</footer>
+
+
+<script>
+/* ── Data ── */
+const items = Array.from(document.querySelectorAll('.gallery-item'));
+let visibleCount = 9;
+let activeFilter = 'all';
+
+/* ── Count badge ── */
+function updateCount() {
+  const visible = items.filter(el => {
+    const cat = el.dataset.category;
+    return activeFilter === 'all' || cat === activeFilter;
+  });
+  document.getElementById('photoCount').textContent =
+    String(visible.length).padStart(2, '0');
+}
+
+/* ── Initial visibility ── */
+function applyVisibility() {
+  let shown = 0;
+  items.forEach(el => {
+    const cat = el.dataset.category;
+    const match = activeFilter === 'all' || cat === activeFilter;
+    if (match && shown < visibleCount) {
+      el.classList.remove('hidden');
+      shown++;
+    } else {
+      el.classList.add('hidden');
+    }
+  });
+  const total = items.filter(el =>
+    activeFilter === 'all' || el.dataset.category === activeFilter
+  ).length;
+  document.getElementById('loadMoreWrap').style.display =
+    shown < total ? 'block' : 'none';
+}
+
+/* ── Filters ── */
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = btn.dataset.filter;
+    visibleCount = 9;
+    applyVisibility();
+    updateCount();
+  });
+});
+
+/* ── Load more ── */
+function loadMore() {
+  visibleCount += 6;
+  applyVisibility();
+}
+
+/* ── Lightbox ── */
+let currentIndex = 0;
+
+function getVisibleItems() {
+  return items.filter(el => !el.classList.contains('hidden'));
+}
+
+function openLightbox(el) {
+  const visible = getVisibleItems();
+  currentIndex = visible.indexOf(el);
+  renderLightbox(currentIndex, visible);
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function renderLightbox(idx, visible) {
+  if (!visible) visible = getVisibleItems();
+  const el = visible[idx];
+  const img = el.querySelector('img');
+  const tag = el.querySelector('.item-tag');
+  const cap = el.querySelector('.item-caption');
+  const meta = el.querySelector('.item-meta');
+  document.getElementById('lightboxImg').src = img.src;
+  document.getElementById('lightboxImg').alt = img.alt;
+  document.getElementById('lightboxTag').textContent = tag ? tag.textContent : '';
+  document.getElementById('lightboxCaption').textContent = cap ? cap.textContent : '';
+  document.getElementById('lightboxMeta').textContent = meta ? meta.textContent : '';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeLightboxOnBg(e) {
+  if (e.target === document.getElementById('lightbox')) closeLightbox();
+}
+
+function navLightbox(dir) {
+  const visible = getVisibleItems();
+  currentIndex = (currentIndex + dir + visible.length) % visible.length;
+  renderLightbox(currentIndex, visible);
+}
+
+/* ── Attach click to items ── */
+items.forEach(el => {
+  el.addEventListener('click', () => openLightbox(el));
+});
+
+/* ── Keyboard nav ── */
+document.addEventListener('keydown', e => {
+  const lb = document.getElementById('lightbox');
+  if (!lb.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowRight') navLightbox(1);
+  if (e.key === 'ArrowLeft') navLightbox(-1);
+});
+
+/* ── Enquiry panel ── */
+function toggleEnquiry() {
+  const panel = document.getElementById('enquiryPanel');
+  const overlay = document.getElementById('panelOverlay');
+  panel.classList.toggle('active');
+  overlay.classList.toggle('active');
+  document.body.style.overflow = panel.classList.contains('active') ? 'hidden' : '';
+}
+
+/* ── Init ── */
+applyVisibility();
+updateCount();
+</script>
+
+</body>
+</html>
