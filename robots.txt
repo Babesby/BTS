@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://beyond-the-science-ghana.ceo704022.chatgpt.site/sitemap.xml
