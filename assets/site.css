@@ -306,12 +306,10 @@ body,.site-header,.home-about,.programme-section,.partners,.post,.modal{backgrou
 .africa-art::before{content:"";position:absolute;inset:12% 8%;background:radial-gradient(circle,rgba(238,104,43,.15),transparent 68%);filter:blur(24px)}
 .africa-art-map{position:relative;isolation:isolate}
 .africa-art img{position:relative;width:100%;max-height:680px;display:block;object-fit:contain;filter:drop-shadow(0 24px 28px rgba(46,24,18,.18))}
-.art-map-pin{position:absolute;z-index:4;width:31px;height:31px;padding:0;border:0;background:transparent;cursor:pointer;transform:translate(-50%,-50%);filter:drop-shadow(0 5px 7px rgba(45,14,16,.45))}
-.art-map-pin>span{position:absolute;inset:0;display:block;background:#f6b817;clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 94%,50% 72%,21% 94%,32% 57%,2% 35%,39% 35%);transition:background-color .2s,transform .2s}
-.art-map-pin::before{content:"";position:absolute;inset:-8px;border:1px solid rgba(255,255,255,.9);border-radius:50%;background:rgba(121,25,39,.72);box-shadow:0 0 0 5px rgba(121,25,39,.12);transition:.2s}
-.art-map-pin:hover>span,.art-map-pin:focus-visible>span,.art-map-pin.is-active>span{background:#fff;transform:scale(1.12)}
-.art-map-pin:hover::before,.art-map-pin:focus-visible::before,.art-map-pin.is-active::before{background:#791927;box-shadow:0 0 0 8px rgba(238,104,43,.2)}
-.art-map-pin:focus-visible{outline:2px solid #791927;outline-offset:9px}
+.art-map-pin{position:absolute;z-index:4;width:40px;height:30px;padding:3px;border:2px solid #fff;background:#791927;box-shadow:0 0 0 4px rgba(121,25,39,.24),0 7px 14px rgba(45,14,16,.38);cursor:pointer;transform:translate(-50%,-50%);transition:transform .2s,box-shadow .2s,border-color .2s}
+.art-map-pin>img{width:100%;height:100%;display:block;object-fit:cover}
+.art-map-pin:hover,.art-map-pin:focus-visible,.art-map-pin.is-active{z-index:6;border-color:#f6b817;box-shadow:0 0 0 6px rgba(246,184,23,.25),0 9px 18px rgba(45,14,16,.42);transform:translate(-50%,-50%) scale(1.14)}
+.art-map-pin:focus-visible{outline:2px solid #791927;outline-offset:7px}
 .art-map-pin em{position:absolute;left:50%;bottom:calc(100% + 12px);min-width:max-content;padding:7px 9px;color:#fff;background:#791927;font:800 .64rem/1 var(--sans);font-style:normal;letter-spacing:.07em;text-transform:uppercase;opacity:0;pointer-events:none;transform:translate(-50%,6px);transition:opacity .2s,transform .2s}
 .art-map-pin em::after{content:"";position:absolute;left:50%;top:100%;border:5px solid transparent;border-top-color:#791927;transform:translateX(-50%)}
 .art-map-pin:hover em,.art-map-pin:focus-visible em,.art-map-pin.is-active em{opacity:1;transform:translate(-50%,0)}
@@ -351,8 +349,7 @@ body,.site-header,.home-about,.programme-section,.partners,.post,.modal{backgrou
   .team-portrait{max-width:280px}
   .team-profile .team-monogram{width:92px;aspect-ratio:1}
   .africa-art{padding:14px}
-  .art-map-pin{width:23px;height:23px}
-  .art-map-pin::before{inset:-6px}
+  .art-map-pin{width:32px;height:24px;padding:2px}
   .art-map-pin em{font-size:.58rem}
 }
 @media(prefers-reduced-motion:reduce){
