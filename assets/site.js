@@ -1,16 +1,20 @@
 const page=document.body.dataset.page||'';
 const root=document.body.dataset.root||'';
-const nav=[['Home','index.html','home'],['About','about.html','about'],['Thematic Areas','thematic-areas.html','themes'],['Team','team.html','team'],['Projects','projects.html','projects'],['Journal','blog.html','journal']];
+const nav=[['Home','index.html','home'],['About','about.html','about'],['Thematic Areas','thematic-areas.html','themes'],['Team','team.html','team'],['Programmes','projects.html','projects'],['Blogs','blog.html','journal'],['Volunteer','volunteer.html','volunteer']];
 const header=`<header class="site-header"><div class="wrap header-inner"><a class="brand" href="${root}index.html" aria-label="Beyond the Science home"><img src="${root}assets/logo.svg" alt="Beyond the Science"></a><button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><i></i></button><nav class="nav" aria-label="Primary navigation">${nav.map(([label,url,key])=>`<a href="${root}${url}"${page===key?' aria-current="page"':''}>${label}</a>`).join('')}<a class="nav-contact" href="${root}contact.html">Partner with us</a></nav></div></header>`;
-const footer=`<footer class="site-footer"><div class="wrap footer-top"><div class="footer-statement"><h2>Knowledge that moves from evidence to action.</h2><a class="button" href="${root}contact.html">Start a conversation</a></div><div class="footer-col"><h3>Explore</h3><a href="${root}about.html">About BTS</a><a href="${root}thematic-areas.html">Thematic areas</a><a href="${root}projects.html">Projects</a><a href="${root}team.html">Team</a><a href="${root}reports.html">Reports</a></div><div class="footer-col"><h3>Connect</h3><a href="${root}blog.html">Journal</a><a href="${root}gallery.html">Gallery</a><a href="mailto:director@beyondthescience.org">director@beyondthescience.org</a></div></div><div class="wrap footer-bottom"><span>© <span data-year></span> Beyond the Science · Accra, Ghana</span><span>Research · Policy · Practice</span></div></footer>`;
+const footer=`<footer class="site-footer"><div class="wrap footer-top"><div class="footer-statement"><h2>Knowledge that moves from evidence to action.</h2><a class="button" href="${root}contact.html">Start a conversation</a></div><div class="footer-col"><h3>Explore</h3><a href="${root}about.html">About BTS</a><a href="${root}thematic-areas.html">Thematic areas</a><a href="${root}projects.html">Programmes</a><a href="${root}team.html">Team</a><a href="${root}reports.html">Reports</a></div><div class="footer-col"><h3>Connect</h3><a href="${root}blog.html">Blogs</a><a href="${root}gallery.html">Gallery</a><a href="${root}volunteer.html">Volunteer</a><a href="mailto:director@beyondthescience.org">director@beyondthescience.org</a></div></div><div class="wrap footer-bottom"><span>© <span data-year></span> Beyond the Science · Accra, Ghana</span><span>Research · Policy · Practice</span></div></footer>`;
 document.querySelector('[data-site-header]')?.insertAdjacentHTML('afterbegin',header);
 document.querySelector('[data-site-footer]')?.insertAdjacentHTML('afterbegin',footer);
 document.querySelectorAll('[data-year]').forEach(el=>el.textContent=new Date().getFullYear());
+const logoSet=document.querySelector('.logo-track .logo-set');
+if(logoSet){const repeat=logoSet.cloneNode(true);repeat.setAttribute('aria-hidden','true');repeat.querySelectorAll('a').forEach(link=>{link.tabIndex=-1;link.querySelectorAll('img').forEach(img=>img.alt='')});logoSet.parentElement.append(repeat)}
 const toggle=document.querySelector('.menu-toggle');
 const closeMenu=()=>{document.body.classList.remove('nav-open');toggle?.setAttribute('aria-expanded','false');toggle?.setAttribute('aria-label','Open navigation')};
 toggle?.addEventListener('click',()=>{const open=document.body.classList.toggle('nav-open');toggle.setAttribute('aria-expanded',String(open));toggle.setAttribute('aria-label',open?'Close navigation':'Open navigation')});
 document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',closeMenu));
 document.addEventListener('keydown',event=>{if(event.key==='Escape'&&document.body.classList.contains('nav-open')){closeMenu();toggle?.focus()}});
+document.addEventListener('click',event=>{if(document.body.classList.contains('nav-open')&&!event.target.closest('.site-header'))closeMenu()});
+window.addEventListener('resize',()=>{if(innerWidth>820&&document.body.classList.contains('nav-open'))closeMenu()});
 
 const hero=document.querySelector('[data-hero-slider]');
 if(hero){
@@ -43,9 +47,19 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
 
 const counterObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(!entry.isIntersecting)return;const el=entry.target,target=Number(el.dataset.count),suffix=el.dataset.suffix||'',start=performance.now();function run(now){const p=Math.min((now-start)/1100,1),e=1-Math.pow(1-p,3);el.textContent=Math.round(target*e).toLocaleString()+suffix;if(p<1)requestAnimationFrame(run)}requestAnimationFrame(run);counterObserver.unobserve(el)}),{threshold:.45});
 document.querySelectorAll('[data-count]').forEach(el=>counterObserver.observe(el));
-document.querySelectorAll('.filter').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('.filter').forEach(b=>b.classList.remove('active'));button.classList.add('active');document.querySelectorAll('.post').forEach(post=>post.hidden=button.dataset.filter!=='all'&&post.dataset.category!==button.dataset.filter)}));
+const journalFilters=[...document.querySelectorAll('.filter')],journalPosts=[...document.querySelectorAll('.post')],filterStatus=document.querySelector('[data-filter-status]');
+journalFilters.forEach(button=>button.addEventListener('click',()=>{
+  const selected=button.dataset.filter;
+  journalFilters.forEach(item=>{const active=item===button;item.classList.toggle('active',active);item.setAttribute('aria-pressed',String(active))});
+  let visible=0;
+  journalPosts.forEach(post=>{const show=selected==='all'||post.dataset.category===selected;post.hidden=!show;if(show)visible++});
+  if(filterStatus)filterStatus.textContent=selected==='all'?`Showing all ${visible} stories`:`Showing ${visible} ${selected} ${visible===1?'story':'stories'}`;
+}));
 const lightbox=document.getElementById('lightbox');
 document.querySelectorAll('.gallery-item').forEach(button=>button.addEventListener('click',()=>{const source=button.querySelector('img'),target=lightbox?.querySelector('img');if(!lightbox||!target)return;target.src=source.src;target.alt=source.alt;lightbox.showModal()}));
 document.querySelectorAll('dialog').forEach(dialog=>{dialog.querySelector('[data-close]')?.addEventListener('click',()=>dialog.close());dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close()})});
 const regionStories={accra:['Greater Accra','National media, policy dialogue and climate storytelling connect evidence to wider public action.'],kumasi:['Ashanti Region','Research and institutional partnerships strengthen locally relevant climate responses.'],tamale:['Northern Ghana','Youth and community work supports resilience, inclusion and locally led adaptation.']};
 document.querySelectorAll('[data-region]').forEach(button=>button.addEventListener('click',()=>{const data=regionStories[button.dataset.region];if(!data)return;document.querySelectorAll('[data-region]').forEach(pin=>{const active=pin===button;pin.classList.toggle('is-active',active);pin.setAttribute('aria-pressed',String(active))});document.querySelector('[data-region-title]').textContent=data[0];document.querySelector('[data-region-text]').textContent=data[1]}));
+const countryNames={ghana:'Ghana',nigeria:'Nigeria',tanzania:'Tanzania',uganda:'Uganda',southafrica:'South Africa',benin:'Benin',cameroon:'Cameroon'};
+function chooseCountry(key){if(!countryNames[key])return;document.querySelectorAll('[data-country],[data-country-choice]').forEach(control=>{const selected=(control.dataset.country||control.dataset.countryChoice)===key;control.classList.toggle('is-active',selected);control.setAttribute('aria-pressed',String(selected))});document.querySelector('[data-country-title]').textContent=countryNames[key];document.querySelector('[data-country-text]').textContent=key==='ghana'?'Home to BTS. Our work here connects climate research, policy, youth leadership, media and community practice.':`${countryNames[key]} is part of BTS’s work across Africa, connecting local priorities with research, institutions and collaborative climate action.`}
+document.querySelectorAll('[data-country],[data-country-choice]').forEach(control=>control.addEventListener('click',()=>chooseCountry(control.dataset.country||control.dataset.countryChoice)));
