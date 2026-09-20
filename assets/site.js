@@ -1,8 +1,8 @@
 const page=document.body.dataset.page||'';
 const root=document.body.dataset.root||'';
-const nav=[['Home','index.html','home'],['About','about.html','about'],['Thematic Areas','thematic-areas.html','themes'],['Team','team.html','team'],['Explore Labs','projects.html','projects'],['Blogs','blog.html','journal'],['Volunteer','volunteer.html','volunteer']];
+const nav=[['Home','index.html','home'],['About','about.html','about'],['Thematic Areas','thematic-areas.html','themes'],['Team','team.html','team'],['Programmes','programmes.html','programmes'],['Explore Labs','projects.html','projects'],['Blogs','blog.html','journal'],['Volunteer','volunteer.html','volunteer']];
 const header=`<header class="site-header"><div class="wrap header-inner"><a class="brand" href="${root}index.html" aria-label="Beyond the Science home"><img src="${root}assets/logo.svg" alt="Beyond the Science"></a><button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><i></i></button><nav class="nav" aria-label="Primary navigation">${nav.map(([label,url,key])=>`<a href="${root}${url}"${page===key?' aria-current="page"':''}>${label}</a>`).join('')}<a class="nav-contact" href="${root}contact.html">Partner with us</a></nav></div></header>`;
-const footer=`<footer class="site-footer"><div class="wrap footer-top"><div class="footer-statement"><h2>Knowledge that moves from evidence to action.</h2><a class="button" href="${root}contact.html">Start a conversation</a></div><div class="footer-col"><h3>Explore</h3><a href="${root}about.html">About BTS</a><a href="${root}thematic-areas.html">Thematic areas</a><a href="${root}projects.html">Explore the labs</a><a href="${root}team.html">Team</a><a href="${root}reports.html">Reports</a></div><div class="footer-col"><h3>Connect</h3><a href="${root}blog.html">Blogs</a><a href="${root}gallery.html">Gallery</a><a href="${root}volunteer.html">Volunteer</a><a href="mailto:info@beyondthescience.org">info@beyondthescience.org</a></div></div><div class="wrap footer-bottom"><span>© <span data-year></span> Beyond the Science · Accra, Ghana</span><span>Research · Policy · Practice</span></div></footer>`;
+const footer=`<footer class="site-footer"><div class="wrap footer-top"><div class="footer-statement"><h2>Knowledge that moves from evidence to action.</h2><a class="button" href="${root}contact.html">Start a conversation</a></div><div class="footer-col"><h3>Explore</h3><a href="${root}about.html">About BTS</a><a href="${root}thematic-areas.html">Thematic areas</a><a href="${root}programmes.html">Programmes</a><a href="${root}projects.html">Explore the labs</a><a href="${root}team.html">Team</a><a href="${root}reports.html">Reports</a></div><div class="footer-col"><h3>Connect</h3><a href="${root}blog.html">Blogs</a><a href="${root}gallery.html">Gallery</a><a href="${root}volunteer.html">Volunteer</a><a href="mailto:info@beyondthescience.org">info@beyondthescience.org</a></div></div><div class="wrap footer-bottom"><span>© <span data-year></span> Beyond the Science · Accra, Ghana</span><span>Research · Policy · Practice</span></div></footer>`;
 document.querySelector('[data-site-header]')?.insertAdjacentHTML('afterbegin',header);
 document.querySelector('[data-site-footer]')?.insertAdjacentHTML('afterbegin',footer);
 document.querySelectorAll('[data-year]').forEach(el=>el.textContent=new Date().getFullYear());
@@ -15,6 +15,11 @@ document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',closeM
 document.addEventListener('keydown',event=>{if(event.key==='Escape'&&document.body.classList.contains('nav-open')){closeMenu();toggle?.focus()}});
 document.addEventListener('click',event=>{if(document.body.classList.contains('nav-open')&&!event.target.closest('.site-header'))closeMenu()});
 window.addEventListener('resize',()=>{if(innerWidth>820&&document.body.classList.contains('nav-open'))closeMenu()});
+
+const portfolioDirectory=document.querySelector('.portfolio-directory>.wrap');
+if(portfolioDirectory){
+  ['evidence-policy','enterprise','creative-art','media-narrative','institutional-toolkit','local-knowledge'].forEach(id=>{const section=document.getElementById(id);if(section)portfolioDirectory.append(section)});
+}
 
 const hero=document.querySelector('[data-hero-slider]');
 if(hero){
