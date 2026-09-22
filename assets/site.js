@@ -1,7 +1,10 @@
-const page=document.body.dataset.page||'';
+const page=document.body.dataset.page||({"reports.html":"reports","gallery.html":"gallery"}[location.pathname.split('/').pop()]||'');
 const root=document.body.dataset.root||'';
-const nav=[['Home','index.html','home'],['About','about.html','about'],['Thematic Areas','thematic-areas.html','themes'],['Team','team.html','team'],['Programmes','programmes.html','programmes'],['Explore Labs','projects.html','projects'],['Blogs','blog.html','journal'],['Volunteer','volunteer.html','volunteer']];
-const header=`<header class="site-header"><div class="wrap header-inner"><a class="brand" href="${root}index.html" aria-label="Beyond the Science home"><img src="${root}assets/logo.svg" alt="Beyond the Science"></a><button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><i></i></button><nav class="nav" aria-label="Primary navigation">${nav.map(([label,url,key])=>`<a href="${root}${url}"${page===key?' aria-current="page"':''}>${label}</a>`).join('')}<a class="nav-contact" href="${root}contact.html">Partner with us</a></nav></div></header>`;
+const navLink=([label,url,key])=>`<a href="${root}${url}"${page===key?' aria-current="page"':''}>${label}</a>`;
+const workNav=[['Thematic Areas','thematic-areas.html','themes'],['Programmes','programmes.html','programmes'],['Explore Labs','projects.html','projects']];
+const storyNav=[['Team','team.html','team'],['Blogs','blog.html','journal'],['Reports','reports.html','reports'],['Gallery','gallery.html','gallery'],['Volunteer','volunteer.html','volunteer']];
+const navGroup=(label,items)=>`<div class="nav-group${items.some(([, ,key])=>page===key)?' is-current':''}"><button class="nav-trigger" type="button" aria-expanded="false">${label}</button><div class="nav-dropdown">${items.map(navLink).join('')}</div></div>`;
+const header=`<header class="site-header"><div class="wrap header-inner"><a class="brand" href="${root}index.html" aria-label="Beyond the Science home"><img src="${root}assets/logo.svg" alt="Beyond the Science"></a><button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><i></i></button><nav class="nav" aria-label="Primary navigation">${navLink(['Home','index.html','home'])}${navLink(['About','about.html','about'])}${navGroup('Our work',workNav)}${navGroup('People & stories',storyNav)}<a class="nav-contact" href="${root}contact.html">Partner with us</a></nav></div></header>`;
 const footer=`<footer class="site-footer"><div class="wrap footer-top"><div class="footer-statement"><h2>Knowledge that moves from evidence to action.</h2><a class="button" href="${root}contact.html">Start a conversation</a></div><div class="footer-col"><h3>Explore</h3><a href="${root}about.html">About BTS</a><a href="${root}thematic-areas.html">Thematic areas</a><a href="${root}programmes.html">Programmes</a><a href="${root}projects.html">Explore the labs</a><a href="${root}team.html">Team</a><a href="${root}reports.html">Reports</a></div><div class="footer-col"><h3>Connect</h3><a href="${root}blog.html">Blogs</a><a href="${root}gallery.html">Gallery</a><a href="${root}volunteer.html">Volunteer</a><a href="mailto:info@beyondthescience.org">info@beyondthescience.org</a></div></div><div class="wrap footer-bottom"><span>© <span data-year></span> Beyond the Science · Accra, Ghana</span><span>Research · Policy · Practice</span></div></footer>`;
 document.querySelector('[data-site-header]')?.insertAdjacentHTML('afterbegin',header);
 document.querySelector('[data-site-footer]')?.insertAdjacentHTML('afterbegin',footer);
@@ -9,11 +12,13 @@ document.querySelectorAll('[data-year]').forEach(el=>el.textContent=new Date().g
 const logoSet=document.querySelector('.logo-track .logo-set');
 if(logoSet){const repeat=logoSet.cloneNode(true);repeat.setAttribute('aria-hidden','true');repeat.querySelectorAll('a').forEach(link=>{link.tabIndex=-1;link.querySelectorAll('img').forEach(img=>img.alt='')});logoSet.parentElement.append(repeat)}
 const toggle=document.querySelector('.menu-toggle');
-const closeMenu=()=>{document.body.classList.remove('nav-open');toggle?.setAttribute('aria-expanded','false');toggle?.setAttribute('aria-label','Open navigation')};
+const closeDropdowns=except=>document.querySelectorAll('.nav-group.is-open').forEach(group=>{if(group!==except){group.classList.remove('is-open');group.querySelector('.nav-trigger')?.setAttribute('aria-expanded','false')}});
+const closeMenu=()=>{document.body.classList.remove('nav-open');toggle?.setAttribute('aria-expanded','false');toggle?.setAttribute('aria-label','Open navigation');closeDropdowns()};
 toggle?.addEventListener('click',()=>{const open=document.body.classList.toggle('nav-open');toggle.setAttribute('aria-expanded',String(open));toggle.setAttribute('aria-label',open?'Close navigation':'Open navigation')});
 document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',closeMenu));
-document.addEventListener('keydown',event=>{if(event.key==='Escape'&&document.body.classList.contains('nav-open')){closeMenu();toggle?.focus()}});
-document.addEventListener('click',event=>{if(document.body.classList.contains('nav-open')&&!event.target.closest('.site-header'))closeMenu()});
+document.querySelectorAll('.nav-trigger').forEach(trigger=>trigger.addEventListener('click',()=>{const group=trigger.closest('.nav-group'),open=!group.classList.contains('is-open');closeDropdowns(group);group.classList.toggle('is-open',open);trigger.setAttribute('aria-expanded',String(open))}));
+document.addEventListener('keydown',event=>{if(event.key==='Escape'){if(document.body.classList.contains('nav-open')){closeMenu();toggle?.focus()}else closeDropdowns()}});
+document.addEventListener('click',event=>{if(!event.target.closest('.nav-group'))closeDropdowns();if(document.body.classList.contains('nav-open')&&!event.target.closest('.site-header'))closeMenu()});
 window.addEventListener('resize',()=>{if(innerWidth>820&&document.body.classList.contains('nav-open'))closeMenu()});
 
 const portfolioDirectory=document.querySelector('.portfolio-directory>.wrap');
