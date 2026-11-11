@@ -15,11 +15,14 @@ http.createServer(async (req, res) => {
   const url = new URL(req.url, 'http://localhost');
   let relative = decodeURIComponent(url.pathname).replace(/^\/+/, '') || 'index.html';
   if (relative.endsWith('/')) relative += 'index.html';
-  const target = path.normalize(path.join(root, relative));
+  let target = path.normalize(path.join(root, relative));
   if (!target.startsWith(root)) { res.writeHead(403); return res.end('Forbidden'); }
   fs.stat(target, (error, stat) => {
-    if (error || !stat.isFile()) { res.writeHead(404); return res.end('Not found'); }
+    if ((error || !stat.isFile()) && !path.extname(target)) target += '.html';
+    fs.stat(target, (finalError, finalStat) => {
+    if (finalError || !finalStat.isFile()) { res.writeHead(404); return res.end('Not found'); }
     res.writeHead(200, { 'content-type': mime[path.extname(target).toLowerCase()] || 'application/octet-stream' });
     fs.createReadStream(target).pipe(res);
+    });
   });
 }).listen(Number(process.env.PORT || 3000), () => console.log('BTS website running at http://localhost:3000'));

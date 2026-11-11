@@ -6,7 +6,12 @@
   ],
   "routes": [
     { "src": "/api/cms", "dest": "/api/cms.js" },
+    { "src": "/index\\.html", "headers": { "Location": "/" }, "status": 308 },
+    { "src": "/(.+)\\.html", "headers": { "Location": "/$1" }, "status": 308 },
     { "handle": "filesystem" },
+    { "src": "/", "dest": "/dist/index.html" },
+    { "src": "/projects/(activate|cap25|clare|climate-focus|climate-health|epicc|ycr)", "dest": "/dist/projects/$1.html" },
+    { "src": "/(about|article|blog|contact|gallery|manage|programmes|projects|reports|team|thematic-areas|volunteer)", "dest": "/dist/$1.html" },
     { "src": "/(.*)", "dest": "/dist/$1" }
   ]
 }

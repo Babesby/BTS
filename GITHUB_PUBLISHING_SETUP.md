@@ -30,10 +30,10 @@ This repository needs a server-capable deployment such as Vercel, Render, Railwa
    - `GITHUB_SITE_DIR` = `dist`
 
 4. Redeploy once after saving the variables.
-5. Open `/manage.html` on the live domain and enter `7776`.
+5. Open `/manage` on the live domain and enter `7776`.
 
 Never put the GitHub token or session secret into committed files. `.env.example` contains placeholders only.
 
 ## Local preview
 
-Run `npm start`, then open `http://localhost:3000/manage.html`. Without GitHub variables, local publishing writes directly into `dist/content` and `dist/uploads`, making it easy to test before committing.
+Run `npm start`, then open `http://localhost:3000/manage`. Without GitHub variables, local publishing writes directly into `dist/content` and `dist/uploads`, making it easy to test before committing.

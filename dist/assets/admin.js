@@ -76,10 +76,11 @@ async function loadContent(){
 
 async function showDashboard(){
   loginView.hidden=true;dashboard.hidden=false;
+  requestAnimationFrame(()=>window.scrollTo({top:0,left:0,behavior:'auto'}));
   if(!storyForm.elements.date.value)storyForm.elements.date.value=new Date().toISOString().slice(0,10);
   try{await loadContent()}catch(error){if(/access|required|unauthorized/i.test(error.message))showLogin();else status(document.querySelector('[data-story-status]'),error.message,'error')}
 }
-function showLogin(){dashboard.hidden=true;loginView.hidden=false}
+function showLogin(){dashboard.hidden=true;loginView.hidden=false;requestAnimationFrame(()=>window.scrollTo({top:0,left:0,behavior:'auto'}))}
 
 loginForm.addEventListener('submit',async event=>{
   event.preventDefault();const button=loginForm.querySelector('button');button.disabled=true;status(loginStatus,'Checking access…');

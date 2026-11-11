@@ -11,7 +11,7 @@ async function contentFile(file){
 }
 
 function btsStoryCard(post){
-  const link=document.createElement('a');link.className='post';link.dataset.category='climate';link.href=`article.html?id=${encodeURIComponent(post.id)}`;
+  const link=document.createElement('a');link.className='post';link.dataset.category='climate';link.href=`/article?id=${encodeURIComponent(post.id)}`;
   const image=document.createElement('img');image.src=post.image;image.alt=post.title;image.loading='lazy';
   const copy=document.createElement('div');copy.className='post-copy';
   const meta=document.createElement('small');meta.textContent=`BTS story · ${btsFormatDate(post.published_date)}`;
