@@ -1,0 +1,13 @@
+{
+  "name": "beyond-the-science-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Beyond the Science website with a GitHub-backed publishing desk",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check api/cms.js && node --check lib/cms-core.js && node --check server.js && node --check dist/assets/admin.js && node --check dist/assets/cms-public.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

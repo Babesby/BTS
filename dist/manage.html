@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>BTS Publishing Desk</title>
+  <link rel="icon" href="assets/favicon.svg">
+  <link rel="stylesheet" href="assets/admin.css">
+</head>
+<body>
+  <main>
+    <section class="login-shell" data-login-view>
+      <div class="login-brand"><img src="assets/logo.svg" alt="Beyond the Science"><span>Publishing Desk</span></div>
+      <div class="login-panel">
+        <p class="eyebrow">Protected access</p>
+        <h1>Manage BTS stories and gallery.</h1>
+        <p>Use the publishing password to continue.</p>
+        <form data-login-form>
+          <label><span>Password</span><input name="password" type="password" autocomplete="current-password" required></label>
+          <button type="submit">Open publishing desk</button>
+        </form>
+        <p class="form-status" data-login-status role="status"></p>
+        <a class="return-link" href="index.html">Return to website</a>
+      </div>
+    </section>
+
+    <section class="dashboard" data-dashboard hidden>
+      <header class="admin-header">
+        <a href="index.html" class="admin-brand"><img src="assets/logo.svg" alt="Beyond the Science"><span>Publishing Desk</span></a>
+        <div><a href="blog.html" target="_blank" rel="noopener">View website</a><button type="button" data-logout>Sign out</button></div>
+      </header>
+      <div class="admin-layout">
+        <aside class="admin-sidebar">
+          <p class="eyebrow">Content management</p>
+          <h1>Publish without redesigning.</h1>
+          <p>The website automatically applies BTS typography, spacing, image treatment and responsive layouts.</p>
+          <nav aria-label="Publishing sections">
+            <button class="tab is-active" type="button" data-tab="stories">Blog stories</button>
+            <button class="tab" type="button" data-tab="gallery">Gallery images</button>
+          </nav>
+        </aside>
+
+        <div class="admin-workspace">
+          <section class="workspace-panel" data-panel="stories">
+            <div class="workspace-heading"><div><p class="eyebrow">Blogs</p><h2>Publish a story</h2></div><p>Complete the five fields. The card and full article page are created automatically.</p></div>
+            <form class="publish-form" data-story-form enctype="multipart/form-data">
+              <label><span>Story title</span><input name="title" maxlength="180" required placeholder="A clear, specific story title"></label>
+              <label><span>Heading</span><textarea name="heading" maxlength="320" rows="2" required placeholder="A short introduction shown on the blog card"></textarea></label>
+              <label><span>Publication date</span><input name="date" type="date" required></label>
+              <label class="upload-field"><span>Feature image</span><input name="image" type="file" accept="image/*" required><small>JPG, PNG or WebP · maximum 10 MB. The publisher optimises it automatically.</small></label>
+              <label><span>Story body</span><textarea name="body" rows="14" maxlength="60000" required placeholder="Write or paste the complete story. Use blank lines between paragraphs. Start a section heading with ## and a quotation with >."></textarea></label>
+              <div class="form-footer"><p class="form-status" data-story-status role="status"></p><button type="submit">Publish story</button></div>
+            </form>
+            <div class="content-list-section"><div class="list-heading"><h3>Published through this desk</h3><span data-story-count>0 stories</span></div><div class="content-list" data-story-list></div></div>
+          </section>
+
+          <section class="workspace-panel" data-panel="gallery" hidden>
+            <div class="workspace-heading"><div><p class="eyebrow">Gallery</p><h2>Add an image</h2></div><p>Add a title and image. The website places it into the existing responsive gallery.</p></div>
+            <form class="publish-form gallery-form" data-gallery-form enctype="multipart/form-data">
+              <label><span>Image title</span><input name="title" maxlength="180" required placeholder="Short descriptive title"></label>
+              <label class="upload-field"><span>Gallery image</span><input name="image" type="file" accept="image/*" required><small>JPG, PNG or WebP · maximum 10 MB. The publisher optimises it automatically.</small></label>
+              <div class="form-footer"><p class="form-status" data-gallery-status role="status"></p><button type="submit">Add to gallery</button></div>
+            </form>
+            <div class="content-list-section"><div class="list-heading"><h3>Added through this desk</h3><span data-gallery-count>0 images</span></div><div class="content-list gallery-admin-list" data-gallery-list></div></div>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="assets/admin.js"></script>
+</body>
+</html>
